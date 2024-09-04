@@ -1,0 +1,13 @@
+import Header from "./Header";
+import Hero from "./Hero";
+import Partners from "./Partners";
+import SearchComponent from "./SearchComponent";
+import Courses from "./Courses";
+import Popular from "./Popular";
+import Footer from "./Footer";
+import Comments from "./Comments";
+import Categories from "./Categories";
+import Hot from "./hot";
+import LearnersTake from "./LearnersTake";
+import SidePanel from "./sidepanel";
+export {Header, Hero, SidePanel,LearnersTake, Hot,SearchComponent, Categories,Footer,Courses,Partners,Comments,Popular};
