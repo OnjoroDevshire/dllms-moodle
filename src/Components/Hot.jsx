@@ -3,49 +3,49 @@ import React from 'react';
 // Sample JSON data
 const categories = [
   {
-    name: "Computer Science Engineering",
-    topics: 63,
-    mcqs: 20697
+    name: "Information Technology",
+    topics: "Data Science",
+    seen: 360,
   },
   {
     name: "Mechanical Engineering",
-    topics: 48,
-    mcqs: 18222
-  },
-  {
-    name: "Civil Engineering",
-    topics: 55,
-    mcqs: 14783
-  },
-  {
-    name: "Information Technology Engineering",
-    topics: 26,
-    mcqs: 8818
+    topics: "Automotive Maintenance",
+    seen: 18222
   },
   {
     name: "Electrical Engineering",
-    topics: 40,
-    mcqs: 9584
+    topics: "Semi conductors and conductors",
+    seen: 14783
+  },
+  {
+    name: "Accounting",
+    topics: "Balancing Accounts",
+    seen: 8818
+  },
+  {
+    name: "Survey ",
+    topics: "Principles of Surveying",
+    seen: 9584
   },
   {
     name: "Electronics and Communication Engineering",
     topics: 8,
-    mcqs: 2576
+    seen: 2576
   },
   {
     name: "Electronics and Telecommunication Engineering",
     topics: 5,
-    mcqs: 1739
+    seen: 1739
   },
   {
     name: "Biomedical Engineering",
     topics: 1,
-    mcqs: 217
+   seen: 217
   },
   {
     name: "Manufacturing Engineering",
     topics: 1,
-    mcqs: 154
+   seen: 154
   }
 ];
 
@@ -53,8 +53,8 @@ const Hot = () => {
   return (
 <div className='mr-6 ml-6'>
   <div className='w-full h-[2vw]'>
-    <p className='text-[1.5vw] mt-[2vw] font-bold text-black'>
-      Hot Topics 
+    <p className='text-[1.5vw] mt-[2vw] font-bold text-gray-800'>
+      Hot Topics per Category 
     </p>
   </div>
 
@@ -64,13 +64,13 @@ const Hot = () => {
         <a
           key={index}
           href="#"
-          className="bg-gray-100 flex-grow text-black border-l-8 border-black rounded-md px-3 py-2"
+          className="bg-blue-50 flex-grow font-serif text-grey-800 border-l-8 border-red-900 rounded-md px-3 py-2"
           style={{ flexBasis: 'calc(33% - 2vw)' }} // Adjust width of each category
         >
           {category.name}
-          <div className="text-gray-500 font-semibold leading-[1.7vw]">
-            <span className="block">Topics: {category.topics}</span>
-            <span className="block">MCQs: {category.mcqs}</span>
+          <div className="text-gray-500  leading-[1.7vw]">
+            <span className="block font-serif">Topics: {category.topics}</span>
+            <span className="block font-serif">Seen by: {category.seen}</span>
           </div>
         </a>
       ))}

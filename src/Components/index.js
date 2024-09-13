@@ -10,4 +10,6 @@ import Categories from "./Categories";
 import Hot from "./hot";
 import LearnersTake from "./LearnersTake";
 import SidePanel from "./sidepanel";
-export {Header, Hero, SidePanel,LearnersTake, Hot,SearchComponent, Categories,Footer,Courses,Partners,Comments,Popular};
+import Business from "./Business";
+import ErrorBoundary from "./ErrorBoundary";
+export {Header, Hero, Business,SidePanel,LearnersTake, ErrorBoundary,Hot,SearchComponent, Categories,Footer,Courses,Partners,Comments,Popular};

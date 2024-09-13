@@ -15,5 +15,7 @@ import learner3 from "./learner3.webp";
 
 import userhome1 from "./userhome1.png";
 import userhome2 from "./userhome2.jpg";
+import coprateImage from "./coprateImage.png";
+import coprateImage1 from "./coprateImage1.jpg";
 
-export{heroimg, userhome1, userhome2,learner2,learner1,learner3,ilab, Safaricom, Strathmore, heroimg1, pythonForDataScience,dataStructureimg,heroimg2, bigDataImage, commentImage, star};
+export{heroimg, userhome1, coprateImage1, coprateImage,  userhome2,learner2,learner1,learner3,ilab, Safaricom, Strathmore, heroimg1, pythonForDataScience,dataStructureimg,heroimg2, bigDataImage, commentImage, star};

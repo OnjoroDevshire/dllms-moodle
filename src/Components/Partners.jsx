@@ -10,10 +10,8 @@ const partners = [
 
 const Partners = () => {
   return (
-    <div className="flex my-6 flex-col p-10  bg-gray-50 px-4 w-full  ">
-      <p className="text-sm md:text-base lg:text-lg bold text-center">
-        Our Certificates are recognized by top institutions
-      </p>
+    <div className="flex my-6 flex-col p-16  bg-blue-50 px-4 w-full  ">
+     
       <div className="flex flex-wrap justify-between items-center mr-12 ml-12">
         {partners.slice(0, 3).map((partner, index) => (
           <div
@@ -28,6 +26,9 @@ const Partners = () => {
           </div>
         ))}
       </div>
+      <p className="text-[1.2vw] mt-[0.2vw] font-serif mb-0 text-red-900 font-bold text-center">
+        Our Certificates are recognized by top institutions
+      </p>
     </div>
   );
 };

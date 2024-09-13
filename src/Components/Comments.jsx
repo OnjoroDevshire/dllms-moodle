@@ -34,13 +34,13 @@ const Comments = () => {
 
   return (
     <div className='relative'>
-      <div className=' bg-white bg-opacity-20 pt-[4.5vw] pb-[3vw] px-[3vw] flex mb-[5vw]'>
+      <div className=' bg-blue-200 bg-opacity-20 pt-[4.5vw] pb-[3vw] px-[3vw] flex mb-[5vw]'>
         <button
-          className='absolute left-0 bg-white rounded-full p-2 text-black hover:bg-gray-200'
+          className='absolute left-0 bg-black rounded-full p-2 text-black hover:bg-gray-800'
           style={{ top: '50%', transform: 'translateY(-50%)' }}
           onClick={handlePrev}
         >
-          <FaChevronLeft className='text-[2vw]' />
+          <FaChevronLeft className='text-[2vw] text-white' />
         </button>
 
         <div className='flex gap-[3vw] ml-[15vw]'>
@@ -61,11 +61,11 @@ const Comments = () => {
         </div>
 
         <button
-          className='absolute right-0 bg-white rounded-full p-2 text-black hover:bg-gray-200'
+          className='absolute right-0 bg-black rounded-full p-2 text-black hover:bg-gray-800'
           style={{ top: '50%', transform: 'translateY(-50%)' }}
           onClick={handleNext}
         >
-          <FaChevronRight className='text-[2vw]' />
+          <FaChevronRight className='text-[2vw] text-white' />
         </button>
       </div>
     </div>

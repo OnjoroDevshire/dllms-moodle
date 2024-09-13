@@ -1,20 +1,84 @@
 import React, { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import moodleApi from '../api/moodle'; // Ensure this is correctly configured
 
 const SearchComponent = () => {
-  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');  // State for the search input
+  const [searchResults, setSearchResults] = useState([]);  // State for storing search results
+  const [error, setError] = useState(null);  // State for error handling
+  const [loading, setLoading] = useState(false);  // Loading state for better UX
 
-  const toggleSearch = () => setSearchVisible(!searchVisible);
+  // Handle input change
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Handle form submission
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    if (!searchQuery.trim()) {
+      setError('Search query cannot be empty.');
+      return;
+    }
+
+    setLoading(true); // Set loading state
+    setError(null); // Clear previous errors
+    setSearchResults([]); // Clear previous results
+
+    try {
+      // Make API request to search for courses
+      const coursesResponse = await moodleApi.get('/moodle/webservice/rest/server.php', {
+        params: {
+          wsfunction: 'core_course_search_courses',  // Updated to search courses
+          moodlewsrestformat: 'json',                // Return response in JSON format
+          criterianame: 'search',                    // Moodle parameter for search
+          criteriavalue: searchQuery,                // Pass the search query here
+        },
+      });
+
+      console.log('Courses Response:', coursesResponse.data);
+
+      // Make API request to search for categories
+      const categoriesResponse = await moodleApi.get('/moodle/webservice/rest/server.php', {
+        params: {
+          wsfunction: 'core_course_get_categories',  // Moodle function to fetch categories
+          moodlewsrestformat: 'json',                // Return response in JSON format
+          'criteria[0][key]': 'name',  // Search by category name
+          'criteria[0][value]': searchQuery,  // Pass the search query here
+          addsubcategories: 1,  // Optionally fetch subcategories as well
+        },
+      });
+
+      console.log('Categories Response:', categoriesResponse.data);
+
+      // Handle courses response data
+      const courses = Array.isArray(coursesResponse.data.courses) ? coursesResponse.data.courses : [];
+      
+      // Handle categories response data
+      const categories = Array.isArray(categoriesResponse.data.categories) ? categoriesResponse.data.categories : [];
+
+      // Combine both courses and categories results into one array
+      const combinedResults = [...courses, ...categories];
+
+      setSearchResults(combinedResults);  // Set the results to state
+    } catch (err) {
+      console.error('Error fetching search results:', err);
+      setError('Failed to fetch search results. Please check the console for details.');
+    } finally {
+      setLoading(false);  // Stop loading state
+    }
+  };
 
   return (
     <div>
-      <form action="/search" className="w-full md:w-[600px] lg:w-full xl:w-[600px]">
+      <form onSubmit={handleSearch} className="w-full md:w-[600px] lg:w-full xl:w-[600px]">
         <div className="relative">
           <input
             type="text"
-            name="q"
+            value={searchQuery}
+            onChange={handleInputChange}
             className="w-full h-12 md:h-10 lg:h-12 xl:h-10 border shadow p-4 rounded-full text-white dark:border-gray-700 dark:bg-gray-200 bg-gray-500"
-            placeholder="search"
+            placeholder="Search for courses or categories"
           />
           <button type="submit" className="absolute top-3.5 right-3">
             <svg
@@ -29,6 +93,23 @@ const SearchComponent = () => {
           </button>
         </div>
       </form>
+
+      {/* Loading Spinner */}
+      {loading && <p>Loading...</p>}
+
+      {/* Display search results */}
+      <div className="mt-4">
+       
+        {!loading && searchResults.length > 0 && (
+          <ul>
+            {searchResults.map((result, index) => (
+              <li key={index} className="p-2 border-b text-white">
+                {result.fullname || result.name}  {/* Display course or category name */}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

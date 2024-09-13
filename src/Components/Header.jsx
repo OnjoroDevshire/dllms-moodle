@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBell } from 'react-icons/fa'; // Import a bell icon from react-icons
+import { FaBell, FaUser } from 'react-icons/fa'; // Import FaUser for profile icon
 import SearchComponent from './SearchComponent';
+import AuthContext from '../Context/AuthContext'; 
+// Import your AuthContext
 
 const Header = ({ isLoggedIn }) => {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const { logout } = useContext(AuthContext); // Destructure logout from AuthContext
 
     const toggleNav = () => {
         setIsNavOpen(!isNavOpen);
     };
 
     return (
-        <div className="bg-black font-sans leading-normal tracking-normal">
-            <nav className="flex items-center justify-between flex-wrap bg-black p-6 w-full z-10 top-0">
+        <div className="bg-blue-600 font-sans leading-normal tracking-normal">
+            <nav className="flex items-center justify-between flex-wrap bg-blue-500 p-4 w-full z-10 top-0">
                 <div className="flex items-center flex-no-shrink text-white mr-6">
                     <a className="text-white no-underline hover:text-white hover:no-underline" href="#">
                         <div className="flex font-bold gap-[0.8vw]">
@@ -41,9 +44,7 @@ const Header = ({ isLoggedIn }) => {
                 </div>
 
                 <div
-                    className={`w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block pt-6 lg:pt-0 ${
-                        isNavOpen ? '' : 'hidden'
-                    }`}
+                    className={`w-full flex-grow lg:flex lg:items-center lg:w-auto  pt-6 lg:pt-0 ${isNavOpen ? '' : 'hidden'}`}
                     id="nav-content"
                 >
                     <SearchComponent />
@@ -51,31 +52,29 @@ const Header = ({ isLoggedIn }) => {
                     <ul className="list-reset lg:flex justify-end flex-1 items-center">
                         {isLoggedIn ? (
                             <>
+                            <li className="mr-3">
+                                    <a className="inline-block py-2 px-4 text-white no-underline" href="/dllms-moodle/courses">
+                                        Courses
+                                    </a>
+                                </li>
                                 <li className="mr-3">
                                     <Link to="/notifications" className="inline-block py-2 px-4 text-gray-400 no-underline hover:text-white">
                                         <FaBell className="text-white w-6 h-6" />
                                     </Link>
                                 </li>
+                                
                                 <li className="mr-3">
-                                    <a className="inline-block py-2 px-4 text-white no-underline" href="#">
-                                        Courses
-                                    </a>
+                                    <Link to="/profile" className="inline-block py-2 px-4 text-gray-400 no-underline hover:text-gray-300 hover:text-underline">
+                                        <FaUser className="text-white w-6 h-6 border rounded-full" />
+                                    </Link>
                                 </li>
                                 <li className="mr-3">
-                                    <a
-                                        className="inline-block text-gray-400 no-underline hover:text-gray-300 hover:text-underline py-2 px-4"
-                                        href="/dllms-moodle/profile"
-                                    >
-                                        Profile
-                                    </a>
-                                </li>
-                                <li className="mr-3">
-                                    <a
-                                        className="inline-block text-gray-400 no-underline hover:text-gray-300 hover:text-underline py-2 px-4"
-                                        href="/dllms-moodle/logout"
+                                    <button
+                                        className="inline-block text-gray-100 no-underline hover:text-gray-300 hover:text-underline py-2 px-4"
+                                        onClick={logout} // Call logout on click
                                     >
                                         Logout
-                                    </a>
+                                    </button>
                                 </li>
                             </>
                         ) : (
@@ -86,21 +85,16 @@ const Header = ({ isLoggedIn }) => {
                                     </a>
                                 </li>
                                 <li className="mr-3">
-                                    <a
-                                        className="inline-block text-gray-400 no-underline hover:text-gray-300 hover:text-underline py-2 px-4"
-                                        href="/dllms-moodle/signuppage"
-                                    >
-                                        Signup
-                                    </a>
-                                </li>
-                                <li className="mr-3">
-                                    <a
-                                        className="inline-block text-gray-400 no-underline hover:text-gray-300 hover:text-underline py-2 px-4"
-                                        href="/dllms-moodle/loginpage"
-                                    >
+                                    <Link to="/login" className="inline-block text-gray-50 no-underline hover:text-gray-300 hover:text-underline py-2 px-4">
                                         Login
-                                    </a>
+                                    </Link>
                                 </li>
+                                <li className="mr-3 border rounded-md">
+  <Link to="/signup" className="inline-block text-gray-50 no-underline hover:text-gray-300 hover:text-underline py-2 px-4">
+    Signup
+  </Link>
+</li>
+                               
                             </>
                         )}
                     </ul>
